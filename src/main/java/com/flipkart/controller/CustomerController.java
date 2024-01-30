@@ -35,6 +35,7 @@ public class CustomerController {
     public Response customerLogin(@QueryParam("userName") String userName, @QueryParam("password") String password) {
         try{
             if (userService.authenticate(userName, password,"GYM_CUSTOMER")) {
+                userService.login(userName);
                 System.out.println("Login Successful");
                 return getCustomerProfile(userName);
             } else {
@@ -101,9 +102,9 @@ public class CustomerController {
 
     //book a slot
     @POST
-    @Path("/booking/slotId")
+    @Path("/booking")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response bookSlot(String slotId){
+    public Response bookSlot(@QueryParam("slotId") String slotId){
 
         String date=slotService.getSlotBySlotId(slotId).getDate();
         String startTime=slotService.getSlotBySlotId(slotId).getStartTime();

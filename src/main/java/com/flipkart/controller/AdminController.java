@@ -34,9 +34,10 @@ public class AdminController {
 
     @GET
     @Path("/login")
-    public Response customerLogin(@QueryParam("userName") String userName, @QueryParam("password") String password) {
+    public Response adminLogin(@QueryParam("userName") String userName, @QueryParam("password") String password) {
         Admin admin = null;
         try{
+            userService.login(userName);
             admin = isUserValid(userName, password);
             System.out.println("Login Successful");
             return Response.ok(admin).build();

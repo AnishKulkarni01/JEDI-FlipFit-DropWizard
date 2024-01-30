@@ -51,6 +51,7 @@ public class GymOwnerController {
     @Path("/login")
     public Response GymOwnerLogin(@QueryParam("userName") String userName, @QueryParam("password") String password) {
         if (userService.authenticate(userName, password,"GYM_OWNER")) {
+            userService.login(userName);
             System.out.println("Login Successful");
             return getGymOwnerProfile(userName);
         } else {
@@ -90,7 +91,7 @@ public Response requestGymOwnerApproval(@QueryParam("gymOwnerId") String gymOwne
 @Path("/get-approval-gym")
 @GET
 @Produces(MediaType.APPLICATION_JSON)
-public Response requestGymCentreApproval(@QueryParam("name") String name,@QueryParam("gstin") String gstin,@QueryParam("city") String city,@QueryParam("seats") int seats,String gymOwnerId) {
+public Response requestGymCentreApproval(@QueryParam("name") String name,@QueryParam("gstin") String gstin,@QueryParam("city") String city,@QueryParam("seats") int seats,@QueryParam("gymOwnerId") String gymOwnerId) {
     gymService.sendGymRequest(name,gstin,city,seats,gymOwnerId);
     return Response.ok("Sent approval request to Admin").build();
 }
@@ -127,7 +128,7 @@ public Response getGymsByCity(@QueryParam("cityName") String cityName) {
     return Response.ok(gymService.getGymByAreas(cityName)).build();
 }
 
-@Path("/add-slots")
+@Path("/add-slot")
 @POST
 @Consumes(MediaType.APPLICATION_JSON)
 public Response addSlots(@QueryParam("gymId") String gymId, @QueryParam("date") String date, @QueryParam("startTime") String startTime){
