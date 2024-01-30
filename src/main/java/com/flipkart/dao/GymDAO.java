@@ -260,6 +260,7 @@ public class GymDAO {
                 gym.setSeats(Integer.parseInt(rs.getString("seats")));
                 gym.setGstin(rs.getString("gstin"));
                 gym.setGymId(rs.getString("gymId"));
+                gym.setGymOwnerId(rs.getString("gymOwnerId"));
                 gym.setIsApproved(rs.getString("isApproved"));
                 gymList.add(gym);
             }

@@ -23,24 +23,17 @@ public class AdminController {
     BookingServiceInterface bookingService = new BookingServiceImpl();
     GymOwnerServiceInterface gymOwnerService=new GymOwnerServiceImpl();
 
-    public Admin isUserValid(String userName, String password) {
-        Admin admin = new Admin();
-        if (userName.equals(admin.getUsername()) && password.equals(admin.getPassword())) {
-            return admin;
-        }
-        return null;
-    }
 
 
     @GET
     @Path("/login")
     public Response adminLogin(@QueryParam("userName") String userName, @QueryParam("password") String password) {
-        Admin admin = null;
+       // boolean admin =false;
         try{
             userService.login(userName);
-            admin = isUserValid(userName, password);
+            //admin = isUserValid(userName, password);
             System.out.println("Login Successful");
-            return Response.ok(admin).build();
+            return Response.ok("true").build();
         }catch (Exception exception){
             return Response.status(Response.Status.UNAUTHORIZED).entity(exception.getMessage()).build();
         }
