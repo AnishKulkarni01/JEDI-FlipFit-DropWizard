@@ -9,6 +9,7 @@ public interface GymServiceInterface {
     public void onBoardGym(String gymId);
     public void deleteGymRequest(String gymId);
     List<Gym> viewPendingRequests(String gymOwnerId);
+    public List<Gym> getGymByAreas(String area);
     void sendGymRequest(String name, String gstin, String city, int seats, String gymOwnerId);
     void updateGymDetails(String newValue, String updateColumn, String gymId);
 }

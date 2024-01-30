@@ -20,11 +20,14 @@ public class BookingServiceImpl implements BookingServiceInterface {
         return null;
     }
 
-    public void addBooking(String customerId, String slotId){
+    public boolean addBooking(String customerId, String slotId){
         try {
             bookingDAO.addBooking(customerId, slotId);
         } catch (SlotDneException e) {
-            System.out.println(e.getMessage());        }
+            System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
     }
 
     public void deleteBooking(String bookingId){

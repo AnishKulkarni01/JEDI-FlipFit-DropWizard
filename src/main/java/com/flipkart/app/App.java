@@ -1,6 +1,6 @@
 package com.flipkart.app;
 
-import com.flipkart.rest.HelloRestController;
+import com.flipkart.controller.HelloRestController;
 import io.dropwizard.Application;
 import io.dropwizard.Configuration;
 import io.dropwizard.setup.Bootstrap;
@@ -8,8 +8,6 @@ import io.dropwizard.setup.Environment;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.flipkart.rest.HelloRestController;
 
 /**s
  * Hello world!

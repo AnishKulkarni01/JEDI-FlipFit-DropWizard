@@ -1,5 +1,6 @@
 package com.flipkart.service.impl;
 
+import com.flipkart.bean.Customer;
 import com.flipkart.dao.CustomerDAO;
 import com.flipkart.dao.UserDAO;
 import com.flipkart.exceptions.CustomerDneException;
@@ -21,13 +22,15 @@ public class CustomerServiceImpl implements CustomerServiceInterface {
         }
     }
 
-    public void register(String name, String password, String email, String contact) {
+    public boolean register(String name, String password, String email, String contact) {
         try {
             customerDAO.registerCustomer(name, password, email, contact);
         } catch (CustomerRegistrationFailedException e) {
             System.out.println(e.getMessage());
+            return false;
         }
         userDAO.addUser(name, password, ROLE_GYM_CUSTOMER);
+        return true;
     }
 
     public void viewProfile() {
@@ -37,6 +40,10 @@ public class CustomerServiceImpl implements CustomerServiceInterface {
                 PURPLE_COLOR + "Password : " + RESET_COLOR + userDetails.get(2) + "\n" +
                 PURPLE_COLOR + "Contact : " + RESET_COLOR + userDetails.get(3) + "\n" +
                 PURPLE_COLOR + "Email : " + RESET_COLOR + userDetails.get(4) + "\n");
+    }
+    public Customer getCustomerFromId(String customerId)
+    {
+        return customerDAO.getCustomer(customerId);
     }
 
     public String getCustomerIdFromUsername(String username) {
