@@ -223,4 +223,36 @@ public class SlotDAO {
             System.out.println(RED_COLOR + "Oops! An error occurred. Try again later." + RESET_COLOR);
         }
     }
+
+    public List<Slot> getSlotsByGymDate(String gymId, String date) throws SlotDneException{
+        List<Slot> slotList = new ArrayList<>();
+        try {
+            Connection conn = DBUtils.connect();
+            PreparedStatement stmt = conn.prepareStatement(GET_SLOT_BY_GYM_DATE);
+            stmt.setString(1, gymId);
+            stmt.setString(2, date);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()){
+                Slot slot = new Slot();
+
+                slot.setDate(rs.getString("date"));
+                slot.setGymId(rs.getString("gymId"));
+                slot.setSlotId(rs.getString("slotId"));
+                slot.setStartTime(rs.getString("startTime"));
+                slot.setAvailabilityStatus(Boolean.parseBoolean(rs.getString("availabilityStatus")));
+
+                slotList.add(slot);
+            }
+        } catch (SQLException e) {
+            throw new SlotDneException();
+            //System.out.println("SlotId does not exist.");
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println(RED_COLOR + "Oops! An error occurred. Try again later." + RESET_COLOR);
+        }
+
+        return slotList;
+    }
 }

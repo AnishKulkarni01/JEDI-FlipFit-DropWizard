@@ -59,7 +59,7 @@ public class GymDAO {
      *
      * @param gymId
      */
-    public void onBoardGym(String gymId) {
+    public void onBoardGym(String gymId) throws GymDneException{
         try {
             conn = DBUtils.connect();
             stmt = conn.prepareStatement(APPROVE_GYM_BY_ID);
@@ -69,7 +69,11 @@ public class GymDAO {
 
             stmt.executeUpdate();
             System.out.println(GREEN_COLOR + "\nGym Onboarding request with " + gymId + " has been approved.\n" + RESET_COLOR);
-        } catch (Exception e) {
+        }catch (SQLException e)
+        {
+            throw new GymDneException();
+        }
+        catch (Exception e) {
             // Handle errors for Class.forName
             e.printStackTrace();
         }
@@ -137,6 +141,35 @@ public class GymDAO {
             }
         }catch(SQLException e) {
             throw new GymOwnerDneException();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return pendingList;
+    }
+    public List<Gym> viewAllPendingRequests()  {
+        List<Gym> pendingList = new ArrayList<>();
+
+        try {
+            conn = DBUtils.connect();
+            //System.out.println("Fetching gym centers..");
+
+            stmt = conn.prepareStatement(FETCH_ALL_PENDING_GYM_REQUESTS);
+
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()) {
+                Gym g=new Gym();
+                g.setName(rs.getString("name"));
+                g.setCity(rs.getString("city"));
+                g.setSeats(Integer.parseInt(rs.getString("seats")));
+                g.setGstin(rs.getString("gstin"));
+                g.setGymId(rs.getString("gymId"));
+                g.setIsApproved(rs.getString("isApproved"));
+                pendingList.add(g);
+            }
+        }catch(SQLException e) {
+            System.out.println("Something went wrong");
         }
         catch (Exception e) {
             e.printStackTrace();

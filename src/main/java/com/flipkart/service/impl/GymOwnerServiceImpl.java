@@ -1,5 +1,6 @@
 package com.flipkart.service.impl;
 
+import com.flipkart.bean.Customer;
 import com.flipkart.bean.GymOwner;
 import com.flipkart.dao.GymOwnerDAO;
 import com.flipkart.dao.UserDAO;
@@ -17,13 +18,15 @@ public class GymOwnerServiceImpl implements GymOwnerServiceInterface {
     GymOwnerDAO gymOwnerDAO = GymOwnerDAO.getInstance();
     UserDAO userDAO = UserDAO.getInstance();
 
-    public void register(String username, String password, String email, String contact) {
+    public boolean register(String username, String password, String email, String contact) {
         try {
             gymOwnerDAO.registerGymOwner(username, password,email,contact);
         } catch (GymOwnerRegistrationFailedException e) {
             System.out.println(e.getMessage());
+            return false;
         }
         userDAO.addUser(username, password, "GYM_OWNER");
+        return true;
     }
 
     public List<String> getOwnerIdByUsername(String username){
@@ -84,11 +87,26 @@ public class GymOwnerServiceImpl implements GymOwnerServiceInterface {
             System.out.println(e.getMessage());
         }
     }
+    public GymOwner getGymOwnerFromId(String gymOwnerId)
+    {
+        try {
+            return gymOwnerDAO.getGymOwner(gymOwnerId);
+        } catch (GymOwnerDneException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
 
     public void rejectGymOwner(String gymOwnerId){
         try {
             gymOwnerDAO.rejectGymOwner(String.valueOf(gymOwnerId));
         } catch (GymOwnerDneException e) {
             System.out.println(e.getMessage());        }
+    }
+    public List<GymOwner>getPendingGymOwners()
+    {
+        List<GymOwner> g=gymOwnerDAO.getPendingGymOwners();
+        return g;
     }
 }

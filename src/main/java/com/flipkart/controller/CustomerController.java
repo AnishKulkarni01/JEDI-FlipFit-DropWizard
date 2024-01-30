@@ -62,7 +62,6 @@ public class CustomerController {
     }
     @POST
     @Path("/register")
-    @Consumes(MediaType.APPLICATION_JSON)
     public Response customerRegister(@QueryParam("userName") String userName,@QueryParam("password") String password,@QueryParam("email") String email,@QueryParam("contact") String contact){
         //Customer customer=new Customer(userId,userName,email,password,customerPhone,cardDetails);
         boolean regDone=customerService.register(userName,password,email,contact);

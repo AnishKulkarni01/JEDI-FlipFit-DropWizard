@@ -64,4 +64,14 @@ public class SlotServiceImpl implements SlotServiceInterface {
             System.out.println(e.getMessage());
         }
     }
+
+    public List<Slot> getAvailableSlotsByCentreAndDate(String gymId, String date){
+        try {
+            return slotDAO.getSlotsByGymDate(gymId, date);
+        } catch (SlotDneException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
 }

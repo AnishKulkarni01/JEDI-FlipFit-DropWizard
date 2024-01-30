@@ -12,4 +12,5 @@ public interface SlotServiceInterface {
     void createSlot(String date, String startTime, String gymId);
     void updateSlot(String newValue, String updateColumn, String slotId);
     void deleteSlotById(String slotId);
+    List<Slot> getAvailableSlotsByCentreAndDate(String gymId, String date);
 }

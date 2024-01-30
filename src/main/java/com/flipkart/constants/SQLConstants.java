@@ -65,7 +65,7 @@ public class SQLConstants {
         public static final String FETCH_ALL_SLOTS ="SELECT * FROM jedi_flipfit_schema.Slot;";
         public static final String FETCH_SLOT_BY_GYMID ="SELECT * FROM jedi_flipfit_schema.Slot WHERE gymId=?;";
         //public static final String FETCH_SLOT_BY_CUSTOMERID ="SELECT * FROM jedi_flipfit_schema.Slot WHERE customerId=?;";
-
+        public static final String GET_SLOT_BY_GYM_DATE = "Select * from jedi_flipfit_schema.Slot WHERE gymId=? AND date=?;";
         public static final String ADD_SLOT ="INSERT INTO jedi_flipfit_schema.Slot( gymId,date, startTime) values (?, ?, ?);";
         public static final String FETCH_SLOT_BY_ID = "SELECT * FROM jedi_flipfit_schema.Slot WHERE slotId=?;";
         public static final String UPDATE_SLOT_DETAILS = "UPDATE jedi_flipfit_schema.Slot SET ? = ? WHERE slotId =?;";

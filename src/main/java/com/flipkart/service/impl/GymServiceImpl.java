@@ -84,9 +84,23 @@ public class GymServiceImpl implements GymServiceInterface {
         }
         return null;
     }
+    public List<Gym> viewAllPendingRequests(){
+        try {
+            return gymDao.viewAllPendingRequests();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 
-    public void onBoardGym(String gymId){
-        gymDao.onBoardGym(String.valueOf(gymId));
+    public boolean onBoardGym(String gymId){
+        try {
+            gymDao.onBoardGym(String.valueOf(gymId));
+        } catch (GymDneException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
     }
 
     public void sendGymRequest(String name, String gstin, String city, int seats, String gymOwnerId){
