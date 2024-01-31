@@ -15,5 +15,6 @@ public interface GymServiceInterface {
     public List<Gym> getGymsByOwnerId(String gymOwnerId);
     public Gym getGymById(String gymId);
     public List<Gym> viewAllPendingRequests();
+    List<String> getAreas();
     public boolean sendOnboardReq(String name, String gstin, String city, int seats,String gymOwnerId);
 }

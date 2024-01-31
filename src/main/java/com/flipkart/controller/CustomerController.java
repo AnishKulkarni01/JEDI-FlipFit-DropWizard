@@ -61,7 +61,7 @@ public class CustomerController {
             return Response.status(Response.Status.UNAUTHORIZED).entity(exception.getMessage()).build();
         }
     }
-    @POST
+    @GET
     @Path("/register")
     public Response customerRegister(@QueryParam("userName") String userName,@QueryParam("password") String password,@QueryParam("email") String email,@QueryParam("contact") String contact){
         //Customer customer=new Customer(userId,userName,email,password,customerPhone,cardDetails);
@@ -76,9 +76,9 @@ public class CustomerController {
     //get centres by City
     @GET
     @Path("/booking/get-city")
-    public Response getCentresByCity(@QueryParam("city") String city){
+    public Response getCentresByCity(){
         try{
-            List<Gym> gymCentreList = gymService.getGymByAreas(city);
+            List<String> gymCentreList = gymService.getAreas();
             return Response.ok(gymCentreList).build();
         }catch(Exception exception){
             exception.printStackTrace();
@@ -107,8 +107,6 @@ public class CustomerController {
     public Response bookSlot(@QueryParam("slotId") String slotId){
 
         String date=slotService.getSlotBySlotId(slotId).getDate();
-        String startTime=slotService.getSlotBySlotId(slotId).getStartTime();
-        String gymId=slotService.getSlotBySlotId(slotId).getGymId();
         System.out.println("\n\n\n\n"+ slotId+date);
         boolean slotBooked = bookingService.addBooking(customerService.getCustomerIdFromUsername(userService.getCurrentUsername()),slotId);
         if(slotBooked) return Response.ok("Slot Booked Successfully").build();
