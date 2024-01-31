@@ -19,7 +19,10 @@ public class GymServiceImpl implements GymServiceInterface {
     public List<String> getAreas(){
         return gymDao.getAllAreas();
     }
-
+    public boolean sendOnboardReq(String name, String gstin, String city, int seats,String gymOwnerId)
+    {
+        return gymDao.sendOnboardReq(name, gstin, city, seats, gymOwnerId);
+    }
     public Gym getGymById(String gymId){
         try {
             return gymDao.getGymById(gymId);

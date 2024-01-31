@@ -35,7 +35,7 @@ public class GymDAO {
      * @param seats
      * @param gymOwnerId
      */
-    public void sendOnboardReq(String name, String gstin, String city, int seats,String gymOwnerId) {
+    public boolean sendOnboardReq(String name, String gstin, String city, int seats,String gymOwnerId) {
         try{
             conn= DBUtils.connect();
             stmt = conn.prepareStatement(SEND_GYM_ONBOARD_REQUEST);
@@ -49,10 +49,11 @@ public class GymDAO {
             stmt.executeUpdate();
             stmt.close();
             System.out.println(GREEN_COLOR + "Gym Onboard Request for " + name + " has been sent." + RESET_COLOR);
-
+return true;
         } catch(Exception e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     /**
@@ -166,6 +167,7 @@ public class GymDAO {
                 g.setGstin(rs.getString("gstin"));
                 g.setGymId(rs.getString("gymId"));
                 g.setIsApproved(rs.getString("isApproved"));
+                g.setGymOwnerId(rs.getString("gymOwnerId"));
                 pendingList.add(g);
             }
         }catch(SQLException e) {

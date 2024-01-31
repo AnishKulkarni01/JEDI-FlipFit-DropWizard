@@ -80,13 +80,6 @@ public Response addGym(@QueryParam("gymId") String gymId) {
     return Response.ok("Gym Accepted").build();
 }
 
-@Path("/get-approval-owner")
-@GET
-@Produces(MediaType.APPLICATION_JSON)
-public Response requestGymOwnerApproval(@QueryParam("gymOwnerId") String gymOwnerId) {
-    gymOwnerService.approveGymOwner(gymOwnerId);
-    return Response.ok("Sent approval request to Admin").build();
-}
 
 @Path("/get-approval-gym")
 @GET

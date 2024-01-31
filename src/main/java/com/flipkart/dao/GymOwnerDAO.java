@@ -176,6 +176,7 @@ public class GymOwnerDAO {
                 gymOwner.setName(rs.getString("username"));
                 gymOwner.setContact(rs.getString("contact"));
                 gymOwner.setEmail(rs.getString("email"));
+                gymOwner.setPassword("*******");
 
                 gymOwnerList.add(gymOwner);
             }
