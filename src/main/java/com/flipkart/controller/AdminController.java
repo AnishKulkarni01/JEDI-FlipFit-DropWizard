@@ -30,10 +30,13 @@ public class AdminController {
     public Response adminLogin(@QueryParam("userName") String userName, @QueryParam("password") String password) {
        // boolean admin =false;
         try{
-            userService.login(userName);
-            //admin = isUserValid(userName, password);
-            System.out.println("Login Successful");
-            return Response.ok("true").build();
+            if (userService.authenticate(userName, password,"ADMIN")) {
+                userService.login(userName);
+                System.out.println("Login Successful");
+                return Response.ok("true").build();
+            }
+            return Response.ok("wrong credentials").build();
+
         }catch (Exception exception){
             return Response.status(Response.Status.UNAUTHORIZED).entity(exception.getMessage()).build();
         }
